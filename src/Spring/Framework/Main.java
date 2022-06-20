@@ -86,7 +86,7 @@ public class Main {
 
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         {
-          int[]  position = {6,8,0};
+          int[]  position = {6,8,0,4};
           int[] speed = {3,2};
             BackTrackingProblems r = new BackTrackingProblems();
            int v = r.subset_sum(position,0,0,14,0);
