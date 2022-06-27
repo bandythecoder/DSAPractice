@@ -1,96 +1,63 @@
 package Spring.Framework;
 
 import Algoritham.BackTrackingProblems;
+import Algoritham.DynamicProgramming_Knapsack01;
 
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.LinkPermission;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class Main {
 
-
-    public static int carFleet(int target, int[] position, int[] speed) {
-        int n = position.length;
-        int[][] cars = new int[n][2];
-        Stack<Double> stack = new Stack<>();
-
-        for(int i = 0; i < n ; i++)
+    public static int maxLength(List<String> arr) {
+        List<String> ls = new ArrayList<>();
+        solve(arr,ls,"",arr.size(),0);
+        int max = 0;
+        for(var v : ls)
         {
-            cars[i][0] = position[i];
-            cars[i][1] = speed[i];
+            max = Math.max(v.length(),max);
         }
-
-        Arrays.sort(cars, (a, b) -> Integer.compare(b[0],a[0]));
-
-        for(int i = 0; i < n ;i++)
-        {
-            if(stack.size() == 0)
-            {
-                double value  = (target - cars[i][0])/cars[i][1];
-                stack.push(value);
-            }
-            else
-            {
-                double prev =  stack.peek();
-                double curr = (target - cars[i][0])/(double)cars[i][1];
-                if(curr > prev)
-
-                    stack.push(curr);
-                }
-
-        }
-        return stack.size();
-
+        return max;
     }
 
-    static List<String> value;
-    public static List<String> letterCasePermutation(String s)
+    public static void  solve(List<String> arr, List<String> output, String outputValue, int size, int n)
     {
-        value = new ArrayList<>();
-        letterCasePermutation(s,"");
-        return value;
 
+        if(isValid(outputValue) && n == size-1)
+        {
+            String value = outputValue;
+            output.add(value);
+        }
+
+        for(int i = n; i < arr.size(); i++)
+        {
+            String value = outputValue;
+            outputValue = outputValue + arr.get(i);
+
+            solve(arr,output,outputValue, size, n+1);
+
+            outputValue = value;
+        }
     }
 
-   static void letterCasePermutation(String s, String output)
+    private static boolean isValid(String s)
     {
-        if(s.length() == 0)
+        Set<Character> s1 = new HashSet<>();
+        for(int i = 0; i < s.length(); i++)
         {
-            value.add(output);
-            return;
+            s1.add(s.charAt(i));
         }
-        if(Character.isDigit(s.charAt(0)))
-        {
-            s = s.substring(1,s.length());
-            output = output + s.charAt(0);
-
-        }
-        if(s.length() == 0)
-        {
-            value.add(output);
-            return;
-        }
-        s = s.substring(1,s.length());
-        String output1 = output + Character.toString(s.charAt(0)).toLowerCase();
-        String output2 = output + Character.toString(s.charAt(0)).toUpperCase();
-
-        letterCasePermutation(s,output1);
-        letterCasePermutation(s,output2);
-
+        return s1.size() == s.length();
     }
-
-
-
-
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         {
-          int[]  position = {6,8,0,4};
-          int[] speed = {3,2};
-            BackTrackingProblems r = new BackTrackingProblems();
-           int v = r.subset_sum(position,0,0,14,0);
-System.out.println(v);
+           BackTrackingProblems b = new BackTrackingProblems();
+           int[][] maze = {{1,0,0,0},{1,1,0,1},{0,1,0,0},{1,1,1,1}};
+           var v = b.solveKT();
+           System.out.println("I am back");
         }
         }
     }
