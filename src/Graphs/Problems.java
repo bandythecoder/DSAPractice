@@ -454,4 +454,222 @@ return false;
         }
          return parent;
     }
+
+    public int kruskalAlgo(List<clsNode> ns, int N)
+    {
+        ns.sort(Comparator.comparingInt(o -> o.w));
+        int[] rank = new int[N];
+        int[] parent = new int[N];
+
+        for(int i = 0; i < N;i++)
+        {
+            rank[i] = 0;
+            parent[i] = i;
+        }
+        List<clsNode> ls = new ArrayList<>();
+        int minCost = 0;
+        for(var v : ns)
+        {
+            if(findParent(v.getU(),parent)!=findParent(v.getV(),parent))
+            {
+                ls.add(v);
+                minCost += v.getW();
+                union(v.getV(),v.getU(),parent,rank);
+
+            }
+        }
+       return minCost;
+
+    }
+
+    private int findParent(int u , int[] parent)
+    {
+        if(u == parent[u])
+        {
+            return u;
+        }
+
+        return parent[u] = findParent(parent[u],parent);
+    }
+    private void union(int v, int u, int[] parent, int[] rank)
+    {
+        int j  = findParent(u,parent);
+        int k = findParent(v,parent);
+        if(rank[j] > rank[k])
+        {
+            parent[k] = j;
+        }
+        else if(rank[k] > rank[j])
+        {
+            parent[j] = k;
+        }
+        else
+        {
+            parent[j] = k;
+            rank[k]++;
+        }
+
+    }
+
+    public void printBridges(List<List<Integer>> graph)
+    {
+        int n = graph.size();
+        boolean[] visited = new boolean[n];
+        int[] timeInsertion = new int[n];
+        int[] lowInsertion = new int[n];
+
+        for(int i = 1; i < n ; i++)
+        {
+            if(!visited[i])
+            {
+                dfs(graph,visited,timeInsertion,lowInsertion,-1,i,0);
+            }
+        }
+
+
+    }
+
+    private void dfs(List<List<Integer>> graph, boolean[] visited, int[] timeInsertion, int[] lowInsertion, int parent, int node, int timer)
+    {
+        visited[node] = true;
+        timeInsertion[node] = lowInsertion[node] = ++timer;
+
+        for(var v : graph.get(node))
+        {
+            if(v == parent) continue;
+
+            if(!visited[v])
+            {
+                dfs(graph,visited,timeInsertion,lowInsertion,node,v,timer);
+                lowInsertion[node] = Math.min(lowInsertion[v],lowInsertion[node]);
+
+                if(lowInsertion[v] >= timeInsertion[node])
+                {
+                    System.out.println("Bride " + v + " " + node );
+                }
+            }
+            else
+            {
+                lowInsertion[node] = Math.min(lowInsertion[v],timeInsertion[node]);
+            }
+
+        }
+
+
+    }
+
+
+    public Set<Integer> articulationPoint(List<List<Integer>> graph)
+    {
+        int n = graph.size();
+        int[] time = new int[n];
+        int[] leastTimeTaken = new int[n];
+
+        Set<Integer> set = new HashSet<>();
+
+        boolean visited[] = new boolean[n];
+
+        for(int i = 1; i < n ; i++)
+        {
+            dfsArticulationPoint(graph,time,leastTimeTaken,visited,set,-1,i,1);
+        }
+        return set;
+    }
+
+    private void dfsArticulationPoint(List<List<Integer>> graph, int[] time, int[] leastTimeTaken, boolean[] visited,Set<Integer>  set,  int parent, int node, int timeTaken)
+    {
+        visited[node] = true;
+        time[node] =  leastTimeTaken[node] = timeTaken++;
+        int child = 0;
+        for(var v : graph.get(node))
+        {
+            if(v == parent) continue;
+
+            if(!visited[v])
+
+            {
+                dfsArticulationPoint(graph,time,leastTimeTaken,visited,set,node,v,timeTaken);
+                leastTimeTaken[node] = Math.min(leastTimeTaken[node], leastTimeTaken[v]);
+
+                if(leastTimeTaken[v] >= time[node] && parent != -1)
+                {
+                    set.add(node);
+                }
+                child++;
+            }
+            else
+            {
+                leastTimeTaken[node] = Math.min(time[node], leastTimeTaken[v]);
+            }
+            if(child > 1 && parent == -1)
+            {
+                set.add(1);
+            }
+        }
+    }
+
+    public void printSCCKosaRaju(List<List<Integer>> li)
+    {
+        int n = li.size();
+        Stack<Integer> st = new Stack<>();
+        boolean visited[] = new boolean[n];
+       for(int i = 1; i < n ; i++)
+       {
+           if(!visited[i])
+           dfsKosaRaju(li,st,visited,i);
+       }
+       List<List<Integer>> transpose = new ArrayList<>();
+       for(int i = 0; i < n; i++)
+       {
+           transpose.add(new ArrayList<Integer>());
+       }
+
+        for(int i = 0; i < n; i++)
+        {
+            visited[i] = false;
+            for(var v : li.get(i))
+            {
+                transpose.get(v).add(i);
+            }
+        }
+
+        while(!st.isEmpty())
+        {
+            int v1 = st.pop();
+
+            if(visited[v1] == false)
+            {
+                System.out.println("SCC ");
+                dfsrev(v1,transpose,visited);
+            }
+
+        }
+
+
+    }
+
+    private void dfsrev(int v1, List<List<Integer>> transpose, boolean[] visited)
+    {
+        visited[v1] = true;
+        System.out.println(v1);
+        for(var v : transpose.get(v1))
+        {
+            if(!visited[v])
+            {
+                dfsrev(v,transpose,visited);
+            }
+        }
+    }
+
+    private void dfsKosaRaju(List<List<Integer>> li, Stack<Integer> st, boolean[] visited, int value)
+    {
+        visited[value] = true;
+        for(var v : li.get(value))
+        {
+            if(!visited[v])
+            dfsKosaRaju(li,st,visited,v);
+        }
+        st.push(value);
+
+    }
 }

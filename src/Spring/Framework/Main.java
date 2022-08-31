@@ -14,51 +14,44 @@ import java.util.List;
 import java.util.*;
 
 import Algoritham.Greedy;
-import Graphs.GraphRepresentation;
-import Graphs.GraphTraversal;
-import Graphs.Problems;
+import Graphs.*;
 import HeapProblems.HeapProblems;
 import LinkedList.*;
 
 public class Main {
 
 
-
-
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         {
-          List<List<Problems.Pair>> ls = new ArrayList<>();
-          int n = 5;
-          for(int i = 0; i < n ; i++)
-          {
-              ls.add(new ArrayList<Problems.Pair>());
-          }
-
-            ls.get(0).add(new Problems.Pair(1,2));
-            ls.get(0).add(new Problems.Pair(3,6));
-
-            ls.get(1).add(new Problems.Pair(0,2));
-            ls.get(1).add(new Problems.Pair(4,5));
-            ls.get(1).add(new Problems.Pair(2,3));
-            ls.get(1).add(new Problems.Pair(3,8));
-
-            ls.get(2).add(new Problems.Pair(1,3));
-            ls.get(2).add(new Problems.Pair(4,7));
-
-            ls.get(3).add(new Problems.Pair(0,6));
-            ls.get(3).add(new Problems.Pair(1,8));
-            ls.get(4).add(new Problems.Pair(1,5));
-            ls.get(4).add(new Problems.Pair(2,7));
 
 
+             List<List<Integer>> graph = new ArrayList<>();
+
+             for(int i = 0; i <= 5; i++)
+             {
+                 graph.add(new ArrayList<Integer>());
+             }
+             graph.get(1).add(2);
+              graph.get(2).add(1);
+             graph.get(2).add(3);
+            graph.get(3).add(2);
+             graph.get(3).add(4);
+             graph.get(4).add(3);
+            graph.get(1).add(4);
+            graph.get(4).add(1);
+             graph.get(4).add(5);
+            graph.get(5).add(4);
+            BipartiteGraphWithBFS p = new BipartiteGraphWithBFS();
+        var v = p.isBipartite(graph);
+
+            String s = "abc";
 
 
-           Problems p = new Problems();
-          var v = p.minSpanningTree(ls);
-          System.out.println(v);
-        }
+
+            List l = new ArrayList();
         }
     }
+}
 
 
 

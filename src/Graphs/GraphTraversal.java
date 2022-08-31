@@ -9,67 +9,59 @@ import java.util.Queue;
 
 public class GraphTraversal {
 
-    public int bfs(List<List<StackProblems.Pair>> adjacencyList, int n)
+    public void printNodesUsingBfs(List<List<Integer>> adjacencyList)
     {
-       List<Integer> weights = new ArrayList<>();
-
-        boolean[] visited = new boolean[n+1];
-
-        for(int i = 1; i <= n; i++)
+        int n = adjacencyList.size();
+        boolean visited[] = new boolean[n];
+        for(int i = 0; i < n ; i++)
         {
             if(!visited[i])
+            bfs(visited, i, adjacencyList);
+        }
+    }
+
+    private void bfs(boolean[] visited, int i, List<List<Integer>> adjacencyList)
+    {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(i);
+
+        while(!queue.isEmpty())
+        {
+            var v = queue.poll();
+            visited[v] = true;
+            System.out.println(v);
+            for(var v1 : adjacencyList.get(v))
             {
-                Queue<Integer> queue = new LinkedList<>();
-                queue.add(i);
-
-                while(!queue.isEmpty())
-                {
-                    int value = queue.poll();
-                    visited[value] = true;
-                    weights.add(value);
-                    for(var v: adjacencyList.get(i))
-                    {
-                        if(visited[v.getKey()] == false)
-                        {
-                            visited[v.getKey()] = true;
-
-                            queue.add(v.getKey());
-
-                        }
-                    }
+                if(!visited[v1]) {
+                    visited[v1] = true;
+                    queue.add(v1);
                 }
             }
 
         }
-        int totalweight = 0;
-        for(int value : weights)
+    }
+    public void printNodesUsingDfs(List<List<Integer>> adjacencyList)
+    {
+        int n = adjacencyList.size();
+        boolean visited[] = new boolean[n];
+        for(int i = 0; i < n ; i++)
         {
-            totalweight += value;
+            if(!visited[i])
+                dfs(visited, i, adjacencyList);
         }
-        return totalweight;
     }
 
-    public List<Integer> dfs(List<List<StackProblems.Pair>> adjacencyList, int n)
+    private void dfs(boolean[] visited, int i, List<List<Integer>> adjacencyList)
     {
-        boolean[] visited = new boolean[n+1];
-        List<Integer> dfs = new ArrayList<>();
-        for(int i = 1; i < n +1; i++)
-        {
-            if(visited[i]) continue;
-             dfsTravesal(adjacencyList,i,visited,dfs);
-        }
-        return dfs;
-    }
-
-    private void dfsTravesal(List<List<StackProblems.Pair>> adjacencyList, int i, boolean[] visited, List<Integer> dfs)
-    {
-        dfs.add(i);
         visited[i] = true;
+        System.out.println(i);
         for(var v : adjacencyList.get(i))
         {
-            if(visited[v.getKey()]) return;
-            dfsTravesal(adjacencyList,v.getKey(),visited,dfs);
+            if(!visited[v])
+            {
+                dfs(visited,v,adjacencyList);
+            }
         }
-
     }
+
 }
