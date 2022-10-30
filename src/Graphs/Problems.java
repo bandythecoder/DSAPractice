@@ -429,14 +429,7 @@ return false;
             int min = Integer.MAX_VALUE;
 
             int u = 0;
-//            for(int j = 0; j < n; j++)
-//            {
-//                if(MST[j] == false && key[j] < min)
-//                {
-//                    min = key[j];
-//                    u = j;
-//                }
-//            }
+
 
             u = pq.poll().v;
 

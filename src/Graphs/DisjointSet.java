@@ -1,46 +1,41 @@
 package Graphs;
 
 public class DisjointSet {
-    int[] rank = new int[1000];
-    int[] parent = new int[1000];
+
+    int[] rank = new int[10000];
+    int[] parent = new int[10000];
 
     public DisjointSet()
     {
-        for(int i = 0; i < 1000; i++)
+        for(int i = 0; i < 10000; i++)
         {
-            rank[i] = 0;
             parent[i] = i;
         }
     }
 
-    public int getParent(int u)
+    public int getParent(int node)
     {
-       if(u == parent[u])
-       {
-           return u;
-       }
-
-       return parent[u] = getParent(parent[u]);
+        if(node == parent[node]) return node;
+        return parent[node] = getParent(parent[node]);
     }
 
-    public void union(int u , int v)
+    public void union(int u1 , int v1)
     {
-        int j = parent[u];
-        int k = parent[v];
+        var u = getParent(u1);
+        var v = getParent(v1);
+        if(rank[u] > rank[v])
+        {
 
-        if(rank[j] < rank[k])
-        {
-            parent[j] = k;
+            parent[v] = u;
         }
-        else if(rank[k] < rank[j])
+        else if(rank[v] > rank[u])
         {
-            parent[k] = j;
+            parent[u] = v;
         }
         else
         {
-            parent[k] = j;
-            rank[j]++;
+            parent[v] = u;
+            rank[u]++;
         }
-
     }
 }
