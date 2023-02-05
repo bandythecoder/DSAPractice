@@ -9,7 +9,6 @@ public class MaxWidthOfBT {
     {
         Queue<treeWithIndex> q = new LinkedList<>();
         q.add(new treeWithIndex(tree,0));
-        int maxHeight = 0;
         int first = 0, last = 0;
         while(!q.isEmpty())
         {

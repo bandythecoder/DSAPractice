@@ -1,19 +1,21 @@
 package Trees;
 
 public class MaxSumOfBinaryTree {
-
-    public int maximum = 0;
-
-    public int findMaxSum(Tree node)
+    int max = Integer.MIN_VALUE;
+    public int maxSum(Tree root)
     {
-        if(node == null)
+        if(root == null)
         {
             return 0;
         }
+        int lmax  = Math.max(maxSum(root.left),0);
+        int rmax = Math.max(maxSum(root.right),0);
 
-        int lmax = findMaxSum(node.left);
-        int rmax = findMaxSum(node.right);
-        maximum = Math.max(maximum , node.data + lmax + rmax);
-        return node.data + lmax + rmax;
+        max = Math.max(max, root.data + lmax + rmax);
+        return Math.max(root.data + lmax, root.data + rmax);
+    }
+    public int maxPathSum(Tree root) {
+        maxSum(root);
+        return max;
     }
 }

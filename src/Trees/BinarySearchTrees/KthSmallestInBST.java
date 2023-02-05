@@ -4,6 +4,8 @@ import Trees.Tree;
 
 public class KthSmallestInBST {
 
+
+    // this solution is using morris traversal
     public int findKthSmallest(Tree node, int k)
     {
         var curr = node;
