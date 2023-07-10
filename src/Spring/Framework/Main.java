@@ -1,32 +1,43 @@
 package Spring.Framework;
 
 
-import Algoritham.DynamicProgramming_LCS;
-import Graphs.Problems;
 
-import java.lang.reflect.InvocationTargetException;
+import Arrays.CyclicSort.SortAnArray;
+import Arrays.SengmentTree.BasicST;
+import Arrays.SengmentTree.RangeSumWithLazyUpdates;
+import Arrays.SengmentTree.STLCM;
+import Arrays.SengmentTree.WhatInIdx;
+import Arrays.SparseTable.RangeSum;
+import Arrays.SparseTable.minSum;
+import Graphs.printBridges;
+import JavaPractice.LeanStrings;
+
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 
 public class Main {
 
-    public static int fib(int n)
-    {
-        if(n == 0 || n ==1)
-        {
-            return 1;
-        }
-
-        return fib(n-1) + fib(n-2);
-    }
-    public  static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        int[][] value = new int[][]{{25,50},{50,25}};
-      System.out.println(fib(5));
+    public static void main(String args[]) {
+        int[] arr = {8,11,19,22};
+        RangeSumWithLazyUpdates rs = new RangeSumWithLazyUpdates(arr);
+        rs.update(0,3,1);
+        rs.update(2,3,2);
+        var x =rs.RangeSum(0,1);
 
     }
 
+
+
+   
     }
+
+
+
+
+
+
+
 
 
 

@@ -1,5 +1,6 @@
 package Graphs;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -37,11 +38,13 @@ public class PrimsAlgo {
                 if(MST[v.edge] == false && key[v.edge] > v.weight)
                 {
                     key[v.edge] = v.weight;
+
                     parent[v.edge] = u;
                     pq.add(new PairMin(v.edge, v.weight));
                 }
             }
         }
+
         int total = 0;
         for(int i = 0 ; i < n ; i++)
         {
