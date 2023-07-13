@@ -1,4 +1,4 @@
-package Arrays.SparseTable;
+package RangeQueries.SparseTable;
 
 public class minSum {
 

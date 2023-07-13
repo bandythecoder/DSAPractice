@@ -1,7 +1,5 @@
-package Arrays.SengmentTree;
+package RangeQueries.SengmentTree;
 
-
-import java.util.Arrays;
 
 public class STLCM {
     

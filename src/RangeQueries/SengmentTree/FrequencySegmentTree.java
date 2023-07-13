@@ -1,4 +1,4 @@
-package Arrays.SengmentTree;
+package RangeQueries.SengmentTree;
 
 public class FrequencySegmentTree {
 }

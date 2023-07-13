@@ -1,4 +1,4 @@
-package Arrays.SengmentTree;
+package RangeQueries.SengmentTree;
 
 import java.util.ArrayList;
 import java.util.Arrays;
